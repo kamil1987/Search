@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    static String solve(int[] a){
+        
+        if(a.length == 1) return "YES";
+        //if(a.length == 2) return "YES";
+        int sumL = 0;
+        int sumR = 0;
+        int totalSum = 0;
+        int []arraySumLeft = new int [a.length];
+        int []arraySumRight = new int [a.length];
+        
+        int k = a.length-1;
+        for(int i = 0 ; i < a.length ; i++){
+            
+            // left sums 
+            sumL += a[i];
+            arraySumLeft[i] = sumL;
+            
+            //right sums
+            sumR += a[k];
+            arraySumRight[k] = sumR;
+            k--;
+        }
+        
+         for(int i = 0 ; i < a.length ; i++){
+             if(i + 2 < a.length){
+                 if(arraySumLeft[i] == arraySumRight[i+2]){
+                     return "YES";
+                 }
+             }else{
+                 return "NO";
+             }
+         }
+        
+          return "NO";
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int T = in.nextInt();
+        for(int a0 = 0; a0 < T; a0++){
+            int n = in.nextInt();
+            int[] a = new int[n];
+            for(int a_i=0; a_i < n; a_i++){
+                a[a_i] = in.nextInt();
+            }
+            String result = solve(a);
+            System.out.println(result);
+        }
+    }
+}
