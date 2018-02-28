@@ -1,0 +1,80 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    static int[] arr ;
+    static int pairs(int k, int[] arr) {
+        
+        int nPairs = 0;
+        int n = arr.length;
+        quickSort(0, n-1);
+        
+        int i=0,j=1;
+    
+        while(j < n) {
+            int diff = arr[j] - arr[i];
+
+            if (diff == k) {
+                nPairs++;
+                j++;
+            } else if (diff > k) {
+                i++;
+            } else if (diff < k) {
+                j++;
+            }
+        }
+
+        return nPairs;
+    }
+
+  static  void quickSort(int lowerIndex, int higherIndex) {
+         
+        int i = lowerIndex;
+        int j = higherIndex;
+      
+        int pivot = arr[lowerIndex+(higherIndex-lowerIndex)/2];
+        
+        while (i <= j) {
+         
+            while (arr[i] < pivot) {
+                i++;
+            }
+            while (arr[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                exchangeNumbers(i, j);  
+                i++;
+                j--;
+            }
+        }
+      
+        if (lowerIndex < j)
+            quickSort(lowerIndex, j);
+        if (i < higherIndex)
+            quickSort(i, higherIndex);
+    }
+    
+    static void exchangeNumbers(int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int k = in.nextInt();
+        arr = new int[n];
+        for(int arr_i = 0; arr_i < n; arr_i++){
+            arr[arr_i] = in.nextInt();
+        }
+        int result = pairs(k, arr);
+        System.out.println(result);
+        in.close();
+    }
+}
